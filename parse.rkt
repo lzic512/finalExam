@@ -49,9 +49,22 @@
               (andmap symbol? xs))
          (Lam (gensym 'lambda) xs (parse-e e))
          (error "parse lambda error"))]
+    [(cons 'values es)
+      (Values (parse-vs es))]
+       [(list 'let-values (list (list xs e)) el)
+       (if (and (list? xs)
+       (andmap symbol? xs))
+       (Let-values xs (parse-e e) (parse-e el))
+       (error "parse let-values error"))]
     [(cons e es)
-     (App (parse-e e) (map parse-e es))]    
+     (App (parse-e e) (map parse-e es))]  
     [_ (error "Parse error" s)]))
+
+(define (parse-vs es)
+  (match es
+   ['() '()]
+   [(cons e el) (cons (parse-e e) (parse-vs el))]))
+
 
 (define (parse-match e ms)
   (match ms

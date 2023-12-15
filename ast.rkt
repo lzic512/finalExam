@@ -65,6 +65,8 @@
 (struct Var   (x)          #:prefab)
 (struct App   (e es)       #:prefab)
 (struct Lam   (f xs e)     #:prefab)
+(struct Values (es)        #:prefab)
+(struct Let-values (xs e el)#:prefab)
 (struct Match (e ps es)    #:prefab)
 
 (struct PVar  (x)          #:prefab)
